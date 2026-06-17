@@ -5,22 +5,25 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import outil.Mp3Consumer;
+import outil.UploadConsumer;
+import outil.DeleteConsumer;
 import outil.Mp3Finder;
 import outil.Mp3Producer;
 
 public class Main {
 
     public static void main(String[] args) {
-        new Thread(() -> {
-            try {
-                Mp3Consumer.demarrer();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+        // Lancer le consommateur 1 : Extraction
+        new Thread(() -> { try { Mp3Consumer.demarrer(); } catch (Exception e) { e.printStackTrace(); } }).start();
+        
+        // Lancer le consommateur 2 : Upload
+        new Thread(() -> { try { UploadConsumer.demarrer(); } catch (Exception e) { e.printStackTrace(); } }).start();
+        
+        // Lancer le consommateur 3 : Suppression
+        new Thread(() -> { try { DeleteConsumer.demarrer(); } catch (Exception e) { e.printStackTrace(); } }).start();
 
-        ScheduledExecutorService scheduler =
-                Executors.newSingleThreadScheduledExecutor();
+        // Le Producer (Etape 1) tourne toutes les 5 minutes
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(Main::scanEtEnvoyer, 0, 5, TimeUnit.MINUTES);
     }
 
