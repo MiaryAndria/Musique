@@ -1,0 +1,8 @@
+Main.class
+outil\Mp3Consumer$1.class
+outil\Mp3Finder.class
+outil\Mp3Consumer.class
+outil\MetaDataExtractor.class
+outil\Mp3Producer.class
+outil\Mp3Metadata.class
+message\RabbitMQConfig.class

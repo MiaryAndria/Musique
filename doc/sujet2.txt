@@ -1,0 +1,23 @@
+Mampiasa techno 2 Symfony et Java
+
+/Mozika repertoire na dossier misy fichier samy hafa: .mp3 .wave
+rehefa maka fichier ex: mp3 ilay systeme dia manoratra ny information recup ao anaty logs.txt 
+logs.txt: date de recup fichier, liste des fichiers, erreurs
+
+Côté JAVA
+Programme mi parcourir ny fichier rehetra anaty repertoire: traitement ...
+   - Extraction Get_metadata ex: titre, artiste, genre, album, durée... (librairie existante no ampiasaina): envoyer les metadata avec l'API
+   - Upload mandefa ny metadata an'ny mp3 makany amin'ny @ dossier hafa /Mp3
+       Deux méthodes d'envoi:
+       - protocole serveur FTP   
+       - API avec Symfony => Java appel l'API
+   - Ecriture des messages logs.txt
+   - Delete
+
+Côté Symfony:
+    1. CRUD mameno ny informations manquantes ana metadata
+    2. Recuperer les informations metadata provenant du systeme JAVA
+    3. API pour completer les informations , pour rechercher les fichiers mp3, pour recuperer (retourner) mp3
+    4. Page de création de playlist: genre de chanson, la durée total d'une playlist, artiste, 
+    5. Page de choix: jouer les chansons de la playlist cote web ou télécharger la playlist.zip
+    6. Stocker les metadata dans une base de donnee

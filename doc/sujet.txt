@@ -1,0 +1,22 @@
+programe a creer : parcourir un dossier dans lequelle il ya  des fichiers mp3 mais aussi d'autre fichiers 
+    metier (le programme tourne regulierement environ tout les 2 a 5 min) : 
+             recuperation des meta donné des fichiers mp 3 (minimum : nom de fichiers , durré , artiste , titre , genre)
+             upload (2 facons : (protocole FTP) ou (appel API)) (on doit choisir le mode ftp ou api dans un fichiers de configuration : l'appli doit supporter les 2 )
+             avoir un fichier log qui va afficher les evenement qui se passe dans l'appli
+             Delete des fichiers mp3
+             deplacement des fichiers mp3 vers un autre repertoire (doit etre API)
+
+symfony : CRUD (pour les fichiers mp3 (pour eventuelement ajouter des informations manquant a un fichiers))
+          API (Recuperation et ajout en base des metadonné , Recuperation et deplacement dans l'autre repertoire des fichiers binnaire mp3 , recherche qui va afficher des donnés (criteres : possible sur tout les metadonné))
+Page : formulaire creation de playlist (genre , duré , selection artiste (possible plusieurs))
+       Apres creation playlist il y a un choix : joué , telechargé (fichiers zip contenant les mp3)
+
+
+Programme :
+1 - Lister contenu repertoire, Filtrer MP3 (atao par periode (ex : tout les 5 mn): chrontab,...) | mandefa message ->
+2 - Extraction metadonnees venant des MP3. | Produit et Consomme message <->
+  => Liste MP3 + metadonnees
+3 - Envoi/appel API -> MP3 et metadonnees
+4 - Suppression (Supprimer les fichiers apres envoi) | Consomme message <-
+
+identifiant rabbitmq = guest guest 
