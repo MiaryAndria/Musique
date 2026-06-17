@@ -1,8 +1,13 @@
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\Main.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\message\RabbitMQConfig.java
-C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\ApiSender.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\ApiUploader.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\DeleteConsumer.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\FtpUploader.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\LogWriter.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\MetaDataExtractor.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\Mp3Consumer.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\Mp3Finder.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\Mp3Metadata.java
 C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\Mp3Producer.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\UploadConsumer.java
+C:\Users\miary\Etude\Symfony\Musique\src\main\java\outil\Uploader.java

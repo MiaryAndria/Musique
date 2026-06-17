@@ -1,0 +1,136 @@
+[2026-06-17 21:11:00] UPLOAD_ERROR | Fichier: BAGUE (feat. ZAWA).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:01] UPLOAD_ERROR | Fichier: DRILL MG II (feat. KIZL).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:03] UPLOAD_ERROR | Fichier: MAFY (ACOUSTIQUE VERSION).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:05] UPLOAD_ERROR | Fichier: MAFY [Prod. SWEETY].mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:06] UPLOAD_ERROR | Fichier: MAINTY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:06] UPLOAD_ERROR | Fichier: MAMY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:07] UPLOAD_ERROR | Fichier: MIFAGNOJO (feat. MAFRO).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:07] UPLOAD_ERROR | Fichier: MIODINA.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:08] UPLOAD_ERROR | Fichier: MOFO GASY (feat. LILOSCARNIVOR).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:08] UPLOAD_ERROR | Fichier: MONE [Prod. HANNOVA].mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:09] UPLOAD_ERROR | Fichier: OMALY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:10] UPLOAD_ERROR | Fichier: Q.I.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:10] UPLOAD_ERROR | Fichier: RNDR - Airplane mode part 2 (Prod. Persia).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:11] UPLOAD_ERROR | Fichier: RNDR - Airplane mode pt.1 (Prod. Bombogasy).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:12] UPLOAD_ERROR | Fichier: RNDR - Belek (Prod. Isekai x Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:13] UPLOAD_ERROR | Fichier: RNDR - Coke Wine (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:14] UPLOAD_ERROR | Fichier: RNDR - Frappe (Prod.Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:15] UPLOAD_ERROR | Fichier: RNDR - Nightmare (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:15] UPLOAD_ERROR | Fichier: RNDR - Real Talk (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:17] UPLOAD_ERROR | Fichier: RNDR - Rindrina efatra (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:18] UPLOAD_ERROR | Fichier: RNDR - Rockstar (Prod.  YNGD).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:19] UPLOAD_ERROR | Fichier: RNDR - Tadidiko (Prod. JustDan Beats).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:21] UPLOAD_ERROR | Fichier: RNDR - Tsy safe (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:22] UPLOAD_ERROR | Fichier: RNDR - VNR (Prod. Kxngxr).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:23] UPLOAD_ERROR | Fichier: RNDR - Wesh (Prod. Alien Xkai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:25] UPLOAD_ERROR | Fichier: RNDR ft BALZ - Tiktok_Pyramid (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:27] UPLOAD_ERROR | Fichier: RNDR ft Dee - Efa lehibe (Prod. Ndrvinabeats).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:29] UPLOAD_ERROR | Fichier: RNDR ft Kev's Stone x Khyms Ogami - No time .mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:30] UPLOAD_ERROR | Fichier: RNDR ft MBL - Hollywood (Prod. ISekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:32] UPLOAD_ERROR | Fichier: RNDR ft Nante - Fitaka (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:34] UPLOAD_ERROR | Fichier: RNDR ft Ratsilahy - RR (Prod. isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:36] UPLOAD_ERROR | Fichier: RNDR ft Tioramar - Ady (Prod. Kresnik).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:37] UPLOAD_ERROR | Fichier: RNDR ft Voay Gang - 2 doigts (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:11:37] UPLOAD_ERROR | Fichier: TOHIZO!.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:01] UPLOAD_ERROR | Fichier: BAGUE (feat. ZAWA).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:04] UPLOAD_ERROR | Fichier: DRILL MG II (feat. KIZL).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:07] UPLOAD_ERROR | Fichier: MAFY (ACOUSTIQUE VERSION).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:09] UPLOAD_ERROR | Fichier: MAFY [Prod. SWEETY].mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:11] UPLOAD_ERROR | Fichier: MAINTY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:13] UPLOAD_ERROR | Fichier: MAMY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:13] UPLOAD_ERROR | Fichier: MIFAGNOJO (feat. MAFRO).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:15] UPLOAD_ERROR | Fichier: MIODINA.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:16] UPLOAD_ERROR | Fichier: MOFO GASY (feat. LILOSCARNIVOR).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:17] UPLOAD_ERROR | Fichier: MONE [Prod. HANNOVA].mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:19] UPLOAD_ERROR | Fichier: OMALY.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:20] UPLOAD_ERROR | Fichier: Q.I.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:21] UPLOAD_ERROR | Fichier: RNDR - Airplane mode part 2 (Prod. Persia).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:22] UPLOAD_ERROR | Fichier: RNDR - Airplane mode pt.1 (Prod. Bombogasy).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Belek (Prod. Isekai x Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Coke Wine (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Frappe (Prod.Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Nightmare (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Real Talk (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Rindrina efatra (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Rockstar (Prod.  YNGD).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Tadidiko (Prod. JustDan Beats).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Tsy safe (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - VNR (Prod. Kxngxr).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR - Wesh (Prod. Alien Xkai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft BALZ - Tiktok_Pyramid (Prod. Ynyavo).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Dee - Efa lehibe (Prod. Ndrvinabeats).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Kev's Stone x Khyms Ogami - No time .mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft MBL - Hollywood (Prod. ISekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Nante - Fitaka (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Ratsilahy - RR (Prod. isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Tioramar - Ady (Prod. Kresnik).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: RNDR ft Voay Gang - 2 doigts (Prod. Isekai).mp3 | Infos: Échec du mode: API
+[2026-06-17 21:16:23] UPLOAD_ERROR | Fichier: TOHIZO!.mp3 | Infos: Échec du mode: API
+[2026-06-17 21:20:59] UPLOAD_SUCCESS | Fichier: BAGUE (feat. ZAWA).mp3 | Infos: Mode: API
+[2026-06-17 21:20:59] DELETE_SUCCESS | Fichier: BAGUE (feat. ZAWA).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:00] UPLOAD_SUCCESS | Fichier: DRILL MG II (feat. KIZL).mp3 | Infos: Mode: API
+[2026-06-17 21:21:00] DELETE_SUCCESS | Fichier: DRILL MG II (feat. KIZL).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:01] UPLOAD_SUCCESS | Fichier: MAFY (ACOUSTIQUE VERSION).mp3 | Infos: Mode: API
+[2026-06-17 21:21:01] DELETE_SUCCESS | Fichier: MAFY (ACOUSTIQUE VERSION).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:03] UPLOAD_SUCCESS | Fichier: MAFY [Prod. SWEETY].mp3 | Infos: Mode: API
+[2026-06-17 21:21:03] DELETE_SUCCESS | Fichier: MAFY [Prod. SWEETY].mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:03] UPLOAD_SUCCESS | Fichier: MAINTY.mp3 | Infos: Mode: API
+[2026-06-17 21:21:03] DELETE_SUCCESS | Fichier: MAINTY.mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:04] UPLOAD_SUCCESS | Fichier: MAMY.mp3 | Infos: Mode: API
+[2026-06-17 21:21:04] DELETE_SUCCESS | Fichier: MAMY.mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:05] UPLOAD_SUCCESS | Fichier: MIFAGNOJO (feat. MAFRO).mp3 | Infos: Mode: API
+[2026-06-17 21:21:05] DELETE_SUCCESS | Fichier: MIFAGNOJO (feat. MAFRO).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:05] UPLOAD_SUCCESS | Fichier: MIODINA.mp3 | Infos: Mode: API
+[2026-06-17 21:21:05] DELETE_SUCCESS | Fichier: MIODINA.mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:06] UPLOAD_SUCCESS | Fichier: MOFO GASY (feat. LILOSCARNIVOR).mp3 | Infos: Mode: API
+[2026-06-17 21:21:06] DELETE_SUCCESS | Fichier: MOFO GASY (feat. LILOSCARNIVOR).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:07] UPLOAD_SUCCESS | Fichier: MONE [Prod. HANNOVA].mp3 | Infos: Mode: API
+[2026-06-17 21:21:07] DELETE_SUCCESS | Fichier: MONE [Prod. HANNOVA].mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:08] UPLOAD_SUCCESS | Fichier: OMALY.mp3 | Infos: Mode: API
+[2026-06-17 21:21:08] DELETE_SUCCESS | Fichier: OMALY.mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:09] UPLOAD_SUCCESS | Fichier: Q.I.mp3 | Infos: Mode: API
+[2026-06-17 21:21:09] DELETE_SUCCESS | Fichier: Q.I.mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:09] UPLOAD_SUCCESS | Fichier: RNDR - Airplane mode part 2 (Prod. Persia).mp3 | Infos: Mode: API
+[2026-06-17 21:21:09] DELETE_SUCCESS | Fichier: RNDR - Airplane mode part 2 (Prod. Persia).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:10] UPLOAD_SUCCESS | Fichier: RNDR - Airplane mode pt.1 (Prod. Bombogasy).mp3 | Infos: Mode: API
+[2026-06-17 21:21:10] DELETE_SUCCESS | Fichier: RNDR - Airplane mode pt.1 (Prod. Bombogasy).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:11] UPLOAD_SUCCESS | Fichier: RNDR - Belek (Prod. Isekai x Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:11] DELETE_SUCCESS | Fichier: RNDR - Belek (Prod. Isekai x Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:12] UPLOAD_SUCCESS | Fichier: RNDR - Coke Wine (Prod. Isekai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:12] DELETE_SUCCESS | Fichier: RNDR - Coke Wine (Prod. Isekai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:13] UPLOAD_SUCCESS | Fichier: RNDR - Frappe (Prod.Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:13] DELETE_SUCCESS | Fichier: RNDR - Frappe (Prod.Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:14] UPLOAD_SUCCESS | Fichier: RNDR - Nightmare (Prod. Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:14] DELETE_SUCCESS | Fichier: RNDR - Nightmare (Prod. Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:14] UPLOAD_SUCCESS | Fichier: RNDR - Real Talk (Prod. Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:14] DELETE_SUCCESS | Fichier: RNDR - Real Talk (Prod. Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:16] UPLOAD_SUCCESS | Fichier: RNDR - Rindrina efatra (Prod. Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:16] DELETE_SUCCESS | Fichier: RNDR - Rindrina efatra (Prod. Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:17] UPLOAD_SUCCESS | Fichier: RNDR - Rockstar (Prod.  YNGD).mp3 | Infos: Mode: API
+[2026-06-17 21:21:17] DELETE_SUCCESS | Fichier: RNDR - Rockstar (Prod.  YNGD).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:17] UPLOAD_SUCCESS | Fichier: RNDR - Tadidiko (Prod. JustDan Beats).mp3 | Infos: Mode: API
+[2026-06-17 21:21:17] DELETE_SUCCESS | Fichier: RNDR - Tadidiko (Prod. JustDan Beats).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:18] UPLOAD_SUCCESS | Fichier: RNDR - Tsy safe (Prod. Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:18] DELETE_SUCCESS | Fichier: RNDR - Tsy safe (Prod. Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:19] UPLOAD_SUCCESS | Fichier: RNDR - VNR (Prod. Kxngxr).mp3 | Infos: Mode: API
+[2026-06-17 21:21:19] DELETE_SUCCESS | Fichier: RNDR - VNR (Prod. Kxngxr).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:20] UPLOAD_SUCCESS | Fichier: RNDR - Wesh (Prod. Alien Xkai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:20] DELETE_SUCCESS | Fichier: RNDR - Wesh (Prod. Alien Xkai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:21] UPLOAD_SUCCESS | Fichier: RNDR ft BALZ - Tiktok_Pyramid (Prod. Ynyavo).mp3 | Infos: Mode: API
+[2026-06-17 21:21:21] DELETE_SUCCESS | Fichier: RNDR ft BALZ - Tiktok_Pyramid (Prod. Ynyavo).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:22] UPLOAD_SUCCESS | Fichier: RNDR ft Dee - Efa lehibe (Prod. Ndrvinabeats).mp3 | Infos: Mode: API
+[2026-06-17 21:21:22] DELETE_SUCCESS | Fichier: RNDR ft Dee - Efa lehibe (Prod. Ndrvinabeats).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:23] UPLOAD_SUCCESS | Fichier: RNDR ft Kev's Stone x Khyms Ogami - No time .mp3 | Infos: Mode: API
+[2026-06-17 21:21:23] DELETE_SUCCESS | Fichier: RNDR ft Kev's Stone x Khyms Ogami - No time .mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:25] UPLOAD_SUCCESS | Fichier: RNDR ft MBL - Hollywood (Prod. ISekai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:25] DELETE_SUCCESS | Fichier: RNDR ft MBL - Hollywood (Prod. ISekai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:27] UPLOAD_SUCCESS | Fichier: RNDR ft Nante - Fitaka (Prod. Isekai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:27] DELETE_SUCCESS | Fichier: RNDR ft Nante - Fitaka (Prod. Isekai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:29] UPLOAD_SUCCESS | Fichier: RNDR ft Ratsilahy - RR (Prod. isekai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:29] DELETE_SUCCESS | Fichier: RNDR ft Ratsilahy - RR (Prod. isekai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:32] UPLOAD_SUCCESS | Fichier: RNDR ft Tioramar - Ady (Prod. Kresnik).mp3 | Infos: Mode: API
+[2026-06-17 21:21:32] DELETE_SUCCESS | Fichier: RNDR ft Tioramar - Ady (Prod. Kresnik).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:33] UPLOAD_SUCCESS | Fichier: RNDR ft Voay Gang - 2 doigts (Prod. Isekai).mp3 | Infos: Mode: API
+[2026-06-17 21:21:33] DELETE_SUCCESS | Fichier: RNDR ft Voay Gang - 2 doigts (Prod. Isekai).mp3 | Infos: Fichier supprimé localement.
+[2026-06-17 21:21:34] UPLOAD_SUCCESS | Fichier: TOHIZO!.mp3 | Infos: Mode: API
+[2026-06-17 21:21:34] DELETE_SUCCESS | Fichier: TOHIZO!.mp3 | Infos: Fichier supprimé localement.
