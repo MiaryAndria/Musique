@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créateur de Playlist{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">
+            <i data-feather="sliders"></i> Générateur de Playlist
+        </h1>
+        <p class="text-muted mt-1">Sélectionnez vos critères, nous nous occupons du reste.</p>
+    </div>
+</div>
+
+{% for message in app.flashes('error') %}
+    <div class="alert alert-error mb-6 shadow-sm">
+        <i data-feather="alert-circle" class="w-5 h-5"></i>
+        <span>{{ message }}</span>
+    </div>
+{% endfor %}
+
+<div class="glass-panel p-6 md:p-8">
+    <form method="post" action="{{ path('app_playlist_create') }}" onsubmit="document.getElementById('submit-btn').classList.add('loading');">
+        
+        <div class="form-control w-full mb-8">
+            <label class="label">
+                <span class="label-text font-semibold text-heading flex items-center gap-2">
+                    <i data-feather="edit-2" class="w-4 h-4"></i> Nom de la playlist
+                </span>
+            </label>
+            <input type="text" name="playlist_name" placeholder="Ex: Ma Super Playlist Rock" class="input input-bordered w-full text-lg" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Colonne 1 : Filtres -->
+            <div class="space-y-6">
+                
+                <!-- Durée -->
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text font-semibold text-heading flex items-center gap-2">
+                            <i data-feather="clock" class="w-4 h-4"></i> Durée cible (minutes)
+                        </span>
+                    </label>
+                    <input type="number" name="duration" value="60" min="1" max="600" class="input input-bordered w-full text-lg" required />
+                </div>
+
+                <!-- Genres -->
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text font-semibold text-heading flex items-center gap-2">
+                            <i data-feather="tag" class="w-4 h-4"></i> Genres musicaux
+                        </span>
+                    </label>
+                    <div class="p-4 bg-base-200 rounded-box max-h-60 overflow-y-auto border border-base-200">
+                        {% for genre in genres %}
+                        <label class="cursor-pointer label justify-start gap-3 py-2 hover:bg-base-300 rounded-lg px-2 transition-colors">
+                            <input type="checkbox" name="genres[]" value="{{ genre.id }}" class="checkbox checkbox-sm checkbox-primary" />
+                            <span class="label-text">{{ genre.nom }}</span>
+                        </label>
+                        {% else %}
+                        <p class="text-subtle text-sm italic p-2">Aucun genre disponible.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Colonne 2 : Artistes -->
+            <div class="space-y-6">
+                <div class="form-control w-full h-full flex flex-col">
+                    <label class="label">
+                        <span class="label-text font-semibold text-heading flex items-center gap-2">
+                            <i data-feather="users" class="w-4 h-4"></i> Artistes
+                        </span>
+                    </label>
+                    <div class="flex-grow p-4 bg-base-200 rounded-box max-h-[300px] overflow-y-auto border border-base-200">
+                        {% for artiste in artistes %}
+                        <label class="cursor-pointer label justify-start gap-3 py-2 hover:bg-base-300 rounded-lg px-2 transition-colors">
+                            <input type="checkbox" name="artistes[]" value="{{ artiste.id }}" class="checkbox checkbox-sm checkbox-secondary" />
+                            <span class="label-text">{{ artiste.nom }}</span>
+                        </label>
+                        {% else %}
+                        <p class="text-subtle text-sm italic p-2">Aucun artiste disponible.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-base-200 flex justify-end">
+            <button type="submit" id="submit-btn" class="btn btn-primary px-10 text-lg">
+                <i data-feather="zap" class="w-5 h-5 mr-2"></i> Creer playlist
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

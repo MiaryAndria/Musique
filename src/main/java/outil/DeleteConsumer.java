@@ -28,7 +28,19 @@ public class DeleteConsumer {
             String filePath = message.get("filePath");
             File file = new File(filePath);
             
-            if (file.exists() && file.delete()) {
+            int retries = 3;
+            boolean deleted = false;
+            while (retries > 0 && file.exists()) {
+                System.gc(); // Aide à libérer les verrous de fichiers sur Windows
+                if (file.delete()) {
+                    deleted = true;
+                    break;
+                }
+                try { Thread.sleep(1000); } catch (InterruptedException e) {}
+                retries--;
+            }
+            
+            if (deleted) {
                 LogWriter.writeLog("DELETE_SUCCESS", file.getName(), "Fichier supprimé localement.");
                 System.out.println("Fichier supprimé : " + file.getName());
             } else {

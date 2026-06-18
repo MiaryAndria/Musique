@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="lofi">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gestion Musicale{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- DaisyUI & TailwindCSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Styles Personnalisés -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- Icones SVG (Feather Icons) -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-sm z-50">
+        <div class="navbar-start">
+            <a href="/" class="btn btn-ghost text-xl font-semibold flex items-center gap-2">
+                <i data-feather="music"></i>
+                Ma Musique
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="/songs" class="font-medium"><i data-feather="list" class="w-4 h-4"></i> Bibliothèque</a></li>
+                <li><a href="/playlist" class="font-medium"><i data-feather="archive" class="w-4 h-4"></i> Mes Playlists</a></li>
+                <li><a href="/playlist/create" class="font-medium"><i data-feather="play-circle" class="w-4 h-4"></i> Générateur</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <!-- Loading indicator caché par défaut -->
+            <div id="global-loader" class="hidden flex items-center gap-2 text-sm text-muted mr-4">
+                <span class="loading loading-spinner loading-sm text-primary"></span> Traitement...
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow container-custom w-full">
+        {% block body %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-auto">
+        <aside>
+            <p>Copyright © 2026 - Système de gestion musicale Symfony</p>
+        </aside>
+    </footer>
+
+    <!-- Init Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+    
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

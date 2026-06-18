@@ -1,17 +1,18 @@
 package outil;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.DeliverCallback;
-import message.RabbitMQConfig;
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.DeliverCallback;
+
+import message.RabbitMQConfig;
 
 public class UploadConsumer {
     private static final Gson gson = new Gson();

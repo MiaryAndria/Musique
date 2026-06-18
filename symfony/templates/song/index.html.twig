@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliothèque Musicale{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">
+            <i data-feather="database"></i> Bibliothèque
+        </h1>
+        <p class="text-muted mt-1">Gérez l'ensemble de vos fichiers MP3 et métadonnées.</p>
+    </div>
+</div>
+
+<div class="glass-panel overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="table w-full">
+            <!-- head -->
+            <thead>
+                <tr class="bg-base-200 text-muted">
+                    <th class="w-16">#</th>
+                    <th>Fichier</th>
+                    <th>Titre</th>
+                    <th>Artistes</th>
+                    <th>Genres</th>
+                    <th>Durée</th>
+                    <th class="text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for song in songs %}
+                <tr class="track-row border-b border-base-200 last:border-0">
+                    <td class="font-medium text-subtle">{{ song.id }}</td>
+                    <td>
+                        <div class="flex items-center gap-2">
+                            <i data-feather="file-text" class="w-4 h-4 text-subtle"></i>
+                            <span class="text-sm font-medium">{{ song.filename }}</span>
+                        </div>
+                    </td>
+                    <td>{{ song.title ?: '<span class="text-subtle italic">Inconnu</span>'|raw }}</td>
+                    <td>
+                        {% for artiste in song.artistes %}
+                            <span class="badge badge-ghost badge-sm">{{ artiste.nom }}</span>
+                        {% else %}
+                            <span class="text-subtle text-sm">-</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for genre in song.genres %}
+                            <span class="badge badge-outline badge-sm">{{ genre.nom }}</span>
+                        {% else %}
+                            <span class="text-subtle text-sm">-</span>
+                        {% endfor %}
+                    </td>
+                    <td class="text-sm text-muted">
+                        {{ (song.duration / 60)|round(0, 'floor') }}m {{ song.duration % 60 }}s
+                    </td>
+                    <td class="text-right">
+                        <div class="flex justify-end gap-2">
+                            <a href="{{ path('app_song_edit', {'id': song.id}) }}" class="btn btn-sm btn-ghost text-primary">
+                                <i data-feather="edit-2" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center py-12 text-muted">
+                        <i data-feather="inbox" class="w-8 h-8 mx-auto mb-2 text-subtle"></i>
+                        Aucune musique n'est encore enregistrée.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

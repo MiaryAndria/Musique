@@ -30,10 +30,10 @@ public class ApiUploader implements Uploader {
                 .build();
 
             post.setEntity(entity);
-            var response = client.execute(post);
-            int statusCode = response.getCode();
-            
-            return statusCode >= 200 && statusCode < 300;
+            try (var response = client.execute(post)) {
+                int statusCode = response.getCode();
+                return statusCode >= 200 && statusCode < 300;
+            }
         } catch (Exception e) {
             System.err.println("Erreur API : " + e.getMessage());
             return false;

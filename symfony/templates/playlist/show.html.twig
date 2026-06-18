@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Playlist : {{ playlist.nom }}{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <div class="flex-1">
+        <a href="{{ path('app_playlist_create') }}" class="btn btn-sm btn-ghost mb-2 -ml-3 text-muted">
+            <i data-feather="arrow-left" class="w-4 h-4"></i> Retour
+        </a>
+        <h1 class="page-title">
+            <i data-feather="headphones" class="text-primary"></i> {{ playlist.nom }}
+        </h1>
+        <p class="text-sm text-muted mt-2 font-medium">
+            <i data-feather="clock" class="w-4 h-4 inline pb-0.5"></i> Durée totale : {{ (playlist.dureeTotale / 60)|round(0, 'floor') }}m {{ playlist.dureeTotale % 60 }}s
+            <span class="mx-2">•</span>
+            <i data-feather="music" class="w-4 h-4 inline pb-0.5"></i> {{ playlist.songs|length }} morceaux
+        </p>
+    </div>
+    <div class="flex gap-3 items-end">
+        <a href="{{ path('app_playlist_download', {'id': playlist.id}) }}" class="btn btn-outline btn-primary" onclick="this.classList.add('loading');">
+            <i data-feather="download" class="w-4 h-4 mr-2"></i> Télécharger ZIP
+        </a>
+        <button id="btn-play-all" class="btn btn-primary">
+            <i data-feather="play" class="w-4 h-4 mr-2"></i> Tout lire
+        </button>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Liste des morceaux -->
+    <div class="lg:col-span-2 glass-panel overflow-hidden">
+        <table class="table w-full">
+            <thead>
+                <tr class="bg-base-200 text-muted">
+                    <th class="w-12"></th>
+                    <th>Titre</th>
+                    <th>Artistes</th>
+                    <th class="text-right">Durée</th>
+                </tr>
+            </thead>
+            <tbody id="playlist-tracks">
+                {% for song in playlist.songs %}
+                <tr class="track-row border-b border-base-200 last:border-0" 
+                    data-src="/api/songs/{{ song.id }}/download" 
+                    data-title="{{ song.title ?: song.filename }}"
+                    data-artist="{% for a in song.artistes %}{{ a.nom }}{{ not loop.last ? ', ' }}{% endfor %}">
+                    
+                    <td class="text-subtle">
+                        <button class="btn btn-circle btn-xs btn-ghost btn-play-track pointer-events-none">
+                            <i data-feather="play" class="w-3 h-3"></i>
+                        </button>
+                    </td>
+                    <td class="font-medium text-heading">{{ song.title ?: song.filename }}</td>
+                    <td class="text-sm text-muted">
+                        {% for artiste in song.artistes %}
+                            {{ artiste.nom }}{{ not loop.last ? ', ' }}
+                        {% else %}
+                            -
+                        {% endfor %}
+                    </td>
+                    <td class="text-right text-sm text-muted">
+                        {{ (song.duration / 60)|round(0, 'floor') }}:{{ '%02d'|format(song.duration % 60) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Lecteur Audio -->
+    <div class="lg:col-span-1">
+        <div class="glass-panel p-6 sticky top-6 text-center">
+            <div class="player-disc-container">
+                <i data-feather="disc" class="icon-large" id="player-disc"></i>
+            </div>
+            
+            <h3 id="player-title" class="text-lg font-bold text-heading truncate mb-1">Prêt à écouter</h3>
+            <p id="player-artist" class="text-sm text-muted truncate mb-8">Sélectionnez une piste</p>
+            
+            <audio id="main-audio-player" controls class="w-full h-12 outline-none rounded-full">
+                Votre navigateur ne supporte pas la balise audio.
+            </audio>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const player = document.getElementById('main-audio-player');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playerDisc = document.getElementById('player-disc');
+        const tracks = document.querySelectorAll('.track-row');
+        let currentTrackIndex = -1;
+
+        function loadTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            
+            // Retirer l'état actif des autres
+            tracks.forEach(t => t.classList.remove('active'));
+            
+            const track = tracks[index];
+            track.classList.add('active');
+            
+            playerTitle.textContent = track.dataset.title;
+            playerArtist.textContent = track.dataset.artist || 'Artiste inconnu';
+            player.src = track.dataset.src;
+            currentTrackIndex = index;
+            
+            player.play().catch(e => console.error("Lecture bloquée par le navigateur", e));
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', () => {
+                loadTrack(index);
+            });
+        });
+
+        document.getElementById('btn-play-all').addEventListener('click', () => {
+            if (tracks.length > 0) {
+                loadTrack(0);
+            }
+        });
+
+        player.addEventListener('play', () => {
+            playerDisc.classList.add('animate-spin-slow');
+        });
+        
+        player.addEventListener('pause', () => {
+            playerDisc.classList.remove('animate-spin-slow');
+        });
+
+        player.addEventListener('ended', () => {
+            if (currentTrackIndex + 1 < tracks.length) {
+                loadTrack(currentTrackIndex + 1);
+            }
+        });
+    });
+</script>
+{% endblock %}

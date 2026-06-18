@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SongRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
@@ -22,12 +24,6 @@ class Song
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $artist = null;
-
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $genre = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $album = null;
 
     #[ORM\Column]
@@ -41,6 +37,29 @@ class Song
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'songs')]
+    #[ORM\JoinTable(name: 't_song_artiste')]
+    private Collection $artistes;
+
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'songs')]
+    #[ORM\JoinTable(name: 't_song_genre')]
+    private Collection $genres;
+
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'songs')]
+    #[ORM\JoinTable(name: 't_song_categorie')]
+    private Collection $categories;
+
+    #[ORM\ManyToMany(targetEntity: Playlist::class, mappedBy: 'songs')]
+    private Collection $playlists;
+
+    public function __construct()
+    {
+        $this->artistes = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
+    }
 
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
@@ -78,28 +97,6 @@ class Song
     public function setTitle(?string $title): static
     {
         $this->title = $title;
-        return $this;
-    }
-
-    public function getArtist(): ?string
-    {
-        return $this->artist;
-    }
-
-    public function setArtist(?string $artist): static
-    {
-        $this->artist = $artist;
-        return $this;
-    }
-
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(?string $genre): static
-    {
-        $this->genre = $genre;
         return $this;
     }
 
@@ -147,6 +144,97 @@ class Song
     }
 
     /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+        }
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        $this->artistes->removeElement($artiste);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+        }
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        $this->genres->removeElement($genre);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): static
+    {
+        $this->categories->removeElement($category);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->addSong($this);
+        }
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            $playlist->removeSong($this);
+        }
+        return $this;
+    }
+
+    /**
      * Convertir en tableau pour la réponse JSON API
      */
     public function toArray(): array
@@ -155,13 +243,14 @@ class Song
             'id' => $this->id,
             'filename' => $this->filename,
             'title' => $this->title,
-            'artist' => $this->artist,
-            'genre' => $this->genre,
             'album' => $this->album,
             'duration' => $this->duration,
             'filePath' => $this->filePath,
             'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            'artistes' => array_map(fn(Artiste $a) => $a->toArray(), $this->artistes->toArray()),
+            'genres' => array_map(fn(Genre $g) => $g->toArray(), $this->genres->toArray()),
+            'categories' => array_map(fn(Categorie $c) => $c->toArray(), $this->categories->toArray()),
         ];
     }
 }

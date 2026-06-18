@@ -3,6 +3,8 @@
 namespace App\Controller\Api;
 
 use App\Entity\Song;
+use App\Entity\Artiste;
+use App\Entity\Genre;
 use App\Repository\SongRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,8 +60,17 @@ class SongApiController extends AbstractController
             mkdir($uploadDir, 0777, true);
         }
 
-        // Générer un nom de fichier unique pour éviter les conflits
         $originalFilename = $file->getClientOriginalName();
+
+        // Vérification si la musique existe déjà pour éviter les doublons
+        $existingSong = $this->songRepository->findOneBy(['filename' => $originalFilename]);
+        if ($existingSong) {
+            return $this->json([
+                'message' => 'Cette chanson existe déjà',
+                'song' => $existingSong->toArray()
+            ], Response::HTTP_OK); // 200 OK permet à Java de supprimer son fichier local
+        }
+
         $safeFilename = transliterator_transliterate(
             'Any-Latin; Latin-ASCII; [^A-Za-z0-9_.-] remove; Lower()',
             pathinfo($originalFilename, PATHINFO_FILENAME)
@@ -80,8 +91,43 @@ class SongApiController extends AbstractController
         $song = new Song();
         $song->setFilename($originalFilename);
         $song->setTitle($request->request->get('title', ''));
-        $song->setArtist($request->request->get('artist', ''));
-        $song->setGenre($request->request->get('genre', ''));
+        
+        $artistString = trim($request->request->get('artist', ''));
+        if ($artistString) {
+            // Séparation des artistes s'il y a des 'feat', 'x', ',', '&', '/'
+            $artistNames = preg_split('/(?i)(\s+x\s+|\s+feat\.?\s+|\s+ft\.?\s+|,|&|\/)/', $artistString);
+            foreach ($artistNames as $aName) {
+                $aName = rtrim(trim($aName), '.');
+                
+                if ($aName) {
+                    // Recherche insensible à la casse dans PostgreSQL
+                    $artiste = $this->em->getRepository(Artiste::class)->createQueryBuilder('a')
+                        ->where('LOWER(a.nom) = LOWER(:nom)')
+                        ->setParameter('nom', $aName)
+                        ->getQuery()
+                        ->getOneOrNullResult();
+                        
+                    if (!$artiste) {
+                        $artiste = new Artiste();
+                        $artiste->setNom($aName);
+                        $this->em->persist($artiste);
+                    }
+                    $song->addArtiste($artiste);
+                }
+            }
+        }
+
+        $genreName = trim($request->request->get('genre', ''));
+        if ($genreName) {
+            $genre = $this->em->getRepository(Genre::class)->findOneBy(['nom' => $genreName]);
+            if (!$genre) {
+                $genre = new Genre();
+                $genre->setNom($genreName);
+                $this->em->persist($genre);
+            }
+            $song->addGenre($genre);
+        }
+
         $song->setDuration((int) $request->request->get('duration', 0));
         $song->setFilePath($newFilename);
 
@@ -168,8 +214,55 @@ class SongApiController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (isset($data['title'])) $song->setTitle($data['title']);
-        if (isset($data['artist'])) $song->setArtist($data['artist']);
-        if (isset($data['genre'])) $song->setGenre($data['genre']);
+        
+        if (isset($data['artist'])) {
+            $artistString = trim($data['artist']);
+            if ($artistString) {
+                // Vider les artistes actuels
+                foreach ($song->getArtistes() as $a) {
+                    $song->removeArtiste($a);
+                }
+                
+                // Séparer les nouveaux artistes (incluant '/')
+                $artistNames = preg_split('/(?i)(\s+x\s+|\s+feat\.?\s+|\s+ft\.?\s+|,|&|\/)/', $artistString);
+                foreach ($artistNames as $aName) {
+                    // Enlever les espaces et les points à la fin
+                    $aName = rtrim(trim($aName), '.');
+                    
+                    if ($aName) {
+                        $artiste = $this->em->getRepository(Artiste::class)->createQueryBuilder('a')
+                            ->where('LOWER(a.nom) = LOWER(:nom)')
+                            ->setParameter('nom', $aName)
+                            ->getQuery()
+                            ->getOneOrNullResult();
+                            
+                        if (!$artiste) {
+                            $artiste = new Artiste();
+                            $artiste->setNom($aName);
+                            $this->em->persist($artiste);
+                        }
+                        $song->addArtiste($artiste);
+                    }
+                }
+            }
+        }
+        
+        if (isset($data['genre'])) {
+            $genreName = trim($data['genre']);
+            if ($genreName) {
+                $genre = $this->em->getRepository(Genre::class)->findOneBy(['nom' => $genreName]);
+                if (!$genre) {
+                    $genre = new Genre();
+                    $genre->setNom($genreName);
+                    $this->em->persist($genre);
+                }
+                foreach ($song->getGenres() as $g) {
+                    $song->removeGenre($g);
+                }
+                $song->addGenre($genre);
+            }
+        }
+        
         if (isset($data['album'])) $song->setAlbum($data['album']);
         if (isset($data['duration'])) $song->setDuration((int) $data['duration']);
 
