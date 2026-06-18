@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
+use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategorieRepository::class)]
-#[ORM\Table(name: 'categorie')]
-class Categorie
+#[ORM\Entity(repositoryClass: AlbumRepository::class)]
+#[ORM\Table(name: 'album')]
+class Album
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,7 +19,7 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Song::class, mappedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Song::class, mappedBy: 'albums')]
     private Collection $songs;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Categorie
     {
         if (!$this->songs->contains($song)) {
             $this->songs->add($song);
-            $song->addCategory($this);
+            $song->addAlbum($this);
         }
         return $this;
     }
@@ -63,7 +63,7 @@ class Categorie
     public function removeSong(Song $song): static
     {
         if ($this->songs->removeElement($song)) {
-            $song->removeCategory($this);
+            $song->removeAlbum($this);
         }
         return $this;
     }

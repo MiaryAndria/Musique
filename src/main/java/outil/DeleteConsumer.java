@@ -31,7 +31,7 @@ public class DeleteConsumer {
             int retries = 3;
             boolean deleted = false;
             while (retries > 0 && file.exists()) {
-                System.gc(); // Aide à libérer les verrous de fichiers sur Windows
+                System.gc();
                 if (file.delete()) {
                     deleted = true;
                     break;

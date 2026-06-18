@@ -29,6 +29,10 @@ class Playlist
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $downloaded = false;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'playlists')]
+    #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?User $user = null;
+
     #[ORM\ManyToMany(targetEntity: Song::class, inversedBy: 'playlists')]
     #[ORM\JoinTable(name: 't_playlist_song')]
     private Collection $songs;
@@ -84,6 +88,17 @@ class Playlist
     public function setDownloaded(bool $downloaded): static
     {
         $this->downloaded = $downloaded;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 

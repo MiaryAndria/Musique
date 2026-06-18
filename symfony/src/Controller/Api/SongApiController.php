@@ -128,6 +128,22 @@ class SongApiController extends AbstractController
             $song->addGenre($genre);
         }
 
+        $albumName = trim($request->request->get('album', ''));
+        if ($albumName) {
+            $album = $this->em->getRepository(\App\Entity\Album::class)->createQueryBuilder('a')
+                ->where('LOWER(a.nom) = LOWER(:nom)')
+                ->setParameter('nom', $albumName)
+                ->getQuery()
+                ->getOneOrNullResult();
+                
+            if (!$album) {
+                $album = new \App\Entity\Album();
+                $album->setNom($albumName);
+                $this->em->persist($album);
+            }
+            $song->addAlbum($album);
+        }
+
         $song->setDuration((int) $request->request->get('duration', 0));
         $song->setFilePath($newFilename);
 
@@ -324,7 +340,7 @@ class SongApiController extends AbstractController
 
         $response = new BinaryFileResponse($filePath);
         $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            ResponseHeaderBag::DISPOSITION_INLINE,
             $song->getFilename()
         );
 

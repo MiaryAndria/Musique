@@ -27,9 +27,13 @@
 
         <div class="form-control w-full mb-6">
             <label class="label">
-                <span class="label-text font-medium text-heading">Album</span>
+                <span class="label-text font-medium text-heading">Album (séparés par virgule)</span>
             </label>
-            <input type="text" name="album" value="{{ song.album }}" placeholder="Nom de l'album" class="input input-bordered w-full" />
+            {% set albumNames = [] %}
+            {% for album in song.albums %}
+                {% set albumNames = albumNames|merge([album.nom]) %}
+            {% endfor %}
+            <input type="text" name="album" value="{{ albumNames|join(', ') }}" placeholder="Nom de l'album" class="input input-bordered w-full" />
         </div>
 
         <!-- Section modifiable pour artistes et genres -->

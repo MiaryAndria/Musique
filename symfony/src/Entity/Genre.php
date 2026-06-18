@@ -19,15 +19,11 @@ class Genre
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'genres')]
-    private Collection $artistes;
-
     #[ORM\ManyToMany(targetEntity: Song::class, mappedBy: 'genres')]
     private Collection $songs;
 
     public function __construct()
     {
-        $this->artistes = new ArrayCollection();
         $this->songs = new ArrayCollection();
     }
 
@@ -44,31 +40,6 @@ class Genre
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Artiste>
-     */
-    public function getArtistes(): Collection
-    {
-        return $this->artistes;
-    }
-
-    public function addArtiste(Artiste $artiste): static
-    {
-        if (!$this->artistes->contains($artiste)) {
-            $this->artistes->add($artiste);
-            $artiste->addGenre($this);
-        }
-        return $this;
-    }
-
-    public function removeArtiste(Artiste $artiste): static
-    {
-        if ($this->artistes->removeElement($artiste)) {
-            $artiste->removeGenre($this);
-        }
         return $this;
     }
 

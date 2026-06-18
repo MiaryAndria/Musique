@@ -16,10 +16,40 @@ use Symfony\Component\Routing\Attribute\Route;
 class SongController extends AbstractController
 {
     #[Route('/', name: 'app_song_index', methods: ['GET'])]
-    public function index(SongRepository $songRepository): Response
-    {
+    public function index(
+        Request $request, 
+        SongRepository $songRepository,
+        EntityManagerInterface $em
+    ): Response {
+        $title = $request->query->get('title');
+        $artisteId = $request->query->get('artiste');
+        $albumId = $request->query->get('album');
+        $genreId = $request->query->get('genre');
+        
+        $artistes = $em->getRepository(Artiste::class)->findBy([], ['nom' => 'ASC']);
+        $albums = $em->getRepository(\App\Entity\Album::class)->findBy([], ['nom' => 'ASC']);
+        $genres = $em->getRepository(Genre::class)->findBy([], ['nom' => 'ASC']);
+
+        if ($title || $artisteId || $albumId || $genreId) {
+            $songs = $songRepository->filterByCriteria(
+                $title, 
+                $artisteId ? (int)$artisteId : null, 
+                $albumId ? (int)$albumId : null, 
+                $genreId ? (int)$genreId : null
+            );
+        } else {
+            $songs = $songRepository->findBy([], ['createdAt' => 'DESC']);
+        }
+        
         return $this->render('song/index.html.twig', [
-            'songs' => $songRepository->findBy([], ['createdAt' => 'DESC']),
+            'songs' => $songs,
+            'searchTitle' => $title,
+            'searchArtiste' => $artisteId,
+            'searchAlbum' => $albumId,
+            'searchGenre' => $genreId,
+            'artistes' => $artistes,
+            'albums' => $albums,
+            'genres' => $genres,
         ]);
     }
 
@@ -31,13 +61,38 @@ class SongController extends AbstractController
         
         if ($request->isMethod('POST')) {
             $title = $request->request->get('title');
-            $album = $request->request->get('album');
             
             if ($title !== null) {
                 $song->setTitle($title);
             }
-            if ($album !== null) {
-                $song->setAlbum($album);
+            
+            // --- Modification des albums ---
+            $albumsString = $request->request->get('album');
+            if ($albumsString !== null) {
+                // On vide les albums actuels
+                foreach ($song->getAlbums() as $al) {
+                    $song->removeAlbum($al);
+                }
+                
+                if (trim($albumsString) !== '') {
+                    $albumNames = array_map('trim', explode(',', $albumsString));
+                    foreach ($albumNames as $alName) {
+                        if ($alName) {
+                            $album = $entityManager->getRepository(\App\Entity\Album::class)->createQueryBuilder('a')
+                                ->where('LOWER(a.nom) = LOWER(:nom)')
+                                ->setParameter('nom', $alName)
+                                ->getQuery()
+                                ->getOneOrNullResult();
+                                
+                            if (!$album) {
+                                $album = new \App\Entity\Album();
+                                $album->setNom($alName);
+                                $entityManager->persist($album);
+                            }
+                            $song->addAlbum($album);
+                        }
+                    }
+                }
             }
             
             // --- Modification des artistes ---

@@ -23,8 +23,9 @@ class Song
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $album = null;
+    #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'songs')]
+    #[ORM\JoinTable(name: 't_song_album')]
+    private Collection $albums;
 
     #[ORM\Column]
     private int $duration = 0;
@@ -46,18 +47,14 @@ class Song
     #[ORM\JoinTable(name: 't_song_genre')]
     private Collection $genres;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'songs')]
-    #[ORM\JoinTable(name: 't_song_categorie')]
-    private Collection $categories;
-
     #[ORM\ManyToMany(targetEntity: Playlist::class, mappedBy: 'songs')]
     private Collection $playlists;
 
     public function __construct()
     {
+        $this->albums = new ArrayCollection();
         $this->artistes = new ArrayCollection();
         $this->genres = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->playlists = new ArrayCollection();
     }
 
@@ -100,14 +97,25 @@ class Song
         return $this;
     }
 
-    public function getAlbum(): ?string
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
     {
-        return $this->album;
+        return $this->albums;
     }
 
-    public function setAlbum(?string $album): static
+    public function addAlbum(Album $album): static
     {
-        $this->album = $album;
+        if (!$this->albums->contains($album)) {
+            $this->albums->add($album);
+        }
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): static
+    {
+        $this->albums->removeElement($album);
         return $this;
     }
 
@@ -188,28 +196,6 @@ class Song
     }
 
     /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Categorie $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
-        return $this;
-    }
-
-    public function removeCategory(Categorie $category): static
-    {
-        $this->categories->removeElement($category);
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Playlist>
      */
     public function getPlaylists(): Collection
@@ -243,14 +229,13 @@ class Song
             'id' => $this->id,
             'filename' => $this->filename,
             'title' => $this->title,
-            'album' => $this->album,
+            'albums' => array_map(fn(Album $a) => $a->toArray(), $this->albums->toArray()),
             'duration' => $this->duration,
             'filePath' => $this->filePath,
             'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
             'artistes' => array_map(fn(Artiste $a) => $a->toArray(), $this->artistes->toArray()),
             'genres' => array_map(fn(Genre $g) => $g->toArray(), $this->genres->toArray()),
-            'categories' => array_map(fn(Categorie $c) => $c->toArray(), $this->categories->toArray()),
         ];
     }
 }

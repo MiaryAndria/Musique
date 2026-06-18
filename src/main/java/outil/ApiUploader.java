@@ -25,6 +25,7 @@ public class ApiUploader implements Uploader {
                 .addBinaryBody("fichier", mp3, ContentType.DEFAULT_BINARY, mp3.getName())
                 .addTextBody("title", metadata.getTitle() != null ? metadata.getTitle() : "", ContentType.TEXT_PLAIN)
                 .addTextBody("artist", metadata.getArtist() != null ? metadata.getArtist() : "", ContentType.TEXT_PLAIN)
+                .addTextBody("album", metadata.getAlbum() != null ? metadata.getAlbum() : "", ContentType.TEXT_PLAIN)
                 .addTextBody("genre", metadata.getGenre() != null ? metadata.getGenre() : "", ContentType.TEXT_PLAIN)
                 .addTextBody("duration", String.valueOf(metadata.getDuration()), ContentType.TEXT_PLAIN)
                 .build();

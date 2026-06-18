@@ -20,7 +20,7 @@ public class Mp3Consumer {
         Channel channel = conn.createChannel();
 
         channel.queueDeclare(RabbitMQConfig.QUEUE_MP3_FOUND, true, false, false, null);
-        channel.queueDeclare(RabbitMQConfig.QUEUE_MP3_EXTRACTED, true, false, false, null); // Nouvelle queue
+        channel.queueDeclare(RabbitMQConfig.QUEUE_MP3_EXTRACTED, true, false, false, null); 
         channel.basicQos(1); 
 
         System.out.println(" Consumer (Extraction) en attente de messages...");
@@ -30,6 +30,11 @@ public class Mp3Consumer {
             Map<String, String> message = gson.fromJson(json, new TypeToken<Map<String, String>>(){}.getType());
 
             String filePath = message.get("filePath");
+            java.io.File file = new java.io.File(filePath);
+            if (!file.exists()) {
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+                return;
+            }
             Mp3Metadata metadata = MetaDataExtractor.extract(Paths.get(filePath));
             
             // On prépare le nouveau message avec les métadonnées

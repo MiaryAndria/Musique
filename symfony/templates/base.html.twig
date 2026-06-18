@@ -5,34 +5,39 @@
     <title>{% block title %}Gestion Musicale{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- DaisyUI & TailwindCSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- DaisyUI & TailwindCSS Local -->
+    <link href="/css/daisyui.min.css" rel="stylesheet" type="text/css" />
+    <script src="/js/tailwindcss.min.js"></script>
     
     <!-- Styles Personnalisés -->
     <link rel="stylesheet" href="/css/style.css">
     
-    <!-- Icones SVG (Feather Icons) -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Icones SVG (Feather Icons) Local -->
+    <script src="/js/feather.min.js"></script>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <!-- Navbar -->
     <div class="navbar bg-base-100 shadow-sm z-50">
-        <div class="navbar-start">
-            <a href="/" class="btn btn-ghost text-xl font-semibold flex items-center gap-2">
-                <i data-feather="music"></i>
-                Ma Musique
-            </a>
-        </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
                 <li><a href="/songs" class="font-medium"><i data-feather="list" class="w-4 h-4"></i> Bibliothèque</a></li>
                 <li><a href="/playlist" class="font-medium"><i data-feather="archive" class="w-4 h-4"></i> Mes Playlists</a></li>
-                <li><a href="/playlist/create" class="font-medium"><i data-feather="play-circle" class="w-4 h-4"></i> Générateur</a></li>
+                <li><a href="/playlist/create" class="font-medium"><i data-feather="play-circle" class="w-4 h-4"></i> Creer playlist </a></li>
             </ul>
         </div>
         <div class="navbar-end">
+            {% if app.user %}
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 text-sm text-muted">
+                        <i data-feather="user" class="w-4 h-4"></i>
+                        <span class="font-medium">{{ app.user.nom ?: app.user.email }}</span>
+                    </div>
+                    <a href="{{ path('app_logout') }}" class="btn btn-ghost btn-sm text-error">
+                        <i data-feather="log-out" class="w-4 h-4 mr-1"></i> Déconnexion
+                    </a>
+                </div>
+            {% endif %}
             <!-- Loading indicator caché par défaut -->
             <div id="global-loader" class="hidden flex items-center gap-2 text-sm text-muted mr-4">
                 <span class="loading loading-spinner loading-sm text-primary"></span> Traitement...
@@ -42,6 +47,12 @@
 
     <!-- Main Content -->
     <main class="flex-grow container-custom w-full">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mb-4 mt-4 shadow-sm">
+                <i data-feather="check-circle" class="w-5 h-5"></i>
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
     </main>
 

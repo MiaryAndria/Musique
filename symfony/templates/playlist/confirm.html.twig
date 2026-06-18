@@ -1,0 +1,257 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer la Playlist{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <div>
+        <a href="{{ path('app_playlist_create') }}" class="btn btn-sm btn-ghost mb-2 -ml-3 text-muted">
+            <i data-feather="arrow-left" class="w-4 h-4"></i> Modifier les critères
+        </a>
+        <h1 class="page-title">
+            <i data-feather="check-circle" class="text-primary"></i> Confirmation de la Playlist
+        </h1>
+        <p class="text-muted mt-1">Vérifiez et ajustez le contenu avant d'enregistrer.</p>
+    </div>
+</div>
+
+{% for message in app.flashes('error') %}
+    <div class="alert alert-error mb-6 shadow-sm">
+        <i data-feather="alert-circle" class="w-5 h-5"></i>
+        <span>{{ message }}</span>
+    </div>
+{% endfor %}
+
+<form method="post" action="{{ path('app_playlist_confirm') }}">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Panneau principal : Liste des morceaux -->
+        <div class="lg:col-span-2 glass-panel overflow-hidden">
+            <div class="p-4 bg-base-200 border-b border-base-300 flex items-center justify-between">
+                <h2 class="font-semibold text-heading flex items-center gap-2">
+                    <i data-feather="music" class="w-4 h-4"></i>
+                    Morceaux sélectionnés
+                    <span class="badge badge-primary" id="song-count">{{ songs|length }}</span>
+                </h2>
+                <div class="flex gap-2">
+                    <button type="button" class="btn btn-xs btn-ghost" onclick="toggleAll(true)">
+                        <i data-feather="check-square" class="w-3 h-3 mr-1"></i> Tout cocher
+                    </button>
+                    <button type="button" class="btn btn-xs btn-ghost" onclick="toggleAll(false)">
+                        <i data-feather="square" class="w-3 h-3 mr-1"></i> Tout décocher
+                    </button>
+                </div>
+            </div>
+
+            <table class="table w-full">
+                <thead>
+                    <tr class="text-muted">
+                        <th class="w-12"></th>
+                        <th>Titre</th>
+                        <th>Artistes</th>
+                        <th>Album</th>
+                        <th>Genres</th>
+                        <th class="text-right">Durée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                    <tr class="hover:bg-base-200/50 transition-colors song-row"
+                        data-src="/api/songs/{{ song.id }}/download" 
+                        data-title="{{ song.title ?: song.filename }}"
+                        data-artist="{% for a in song.artistes %}{{ a.nom }}{{ not loop.last ? ', ' }}{% endfor %}">
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <input 
+                                    type="checkbox" 
+                                    name="kept_songs[]" 
+                                    value="{{ song.id }}" 
+                                    class="checkbox checkbox-sm checkbox-primary song-checkbox" 
+                                    checked
+                                    data-duration="{{ song.duration }}"
+                                    onchange="updateSummary()"
+                                />
+                                <button type="button" class="btn btn-circle btn-xs btn-ghost btn-play-track" onclick="playTrack(this, event)">
+                                    <i data-feather="play" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="font-medium text-heading">{{ song.title ?: song.filename }}</td>
+                        <td class="text-sm text-muted">
+                            {% for artiste in song.artistes %}
+                                {{ artiste.nom }}{{ not loop.last ? ', ' }}
+                            {% else %}
+                                <span class="italic">-</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-sm text-muted">
+                            {% for album in song.albums %}
+                                {{ album.nom }}{{ not loop.last ? ', ' }}
+                            {% else %}
+                                <span class="italic">-</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-sm text-muted">
+                            {% for genre in song.genres %}
+                                <span class="badge badge-sm badge-outline">{{ genre.nom }}</span>
+                            {% else %}
+                                <span class="italic">-</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-right text-sm text-muted">
+                            {{ (song.duration / 60)|round(0, 'floor') }}:{{ '%02d'|format(song.duration % 60) }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Panneau latéral : Résumé + Actions -->
+        <div class="lg:col-span-1">
+            <div class="glass-panel p-6 sticky top-6">
+                
+                <h3 class="text-lg font-bold text-heading mb-6 flex items-center gap-2">
+                    <i data-feather="file-text" class="w-5 h-5 text-primary"></i> Résumé
+                </h3>
+
+                <!-- Nom de la playlist -->
+                <div class="form-control w-full mb-5">
+                    <label class="label">
+                        <span class="label-text font-semibold text-heading flex items-center gap-2">
+                            <i data-feather="edit-2" class="w-4 h-4"></i> Nom de la playlist
+                        </span>
+                    </label>
+                    <input 
+                        type="text" 
+                        name="playlist_name" 
+                        value="{{ playlistName }}" 
+                        class="input input-bordered w-full" 
+                    />
+                </div>
+
+                <!-- Stats -->
+                <div class="space-y-3 mb-8">
+                    <div class="flex justify-between items-center py-2 border-b border-base-200">
+                        <span class="text-muted flex items-center gap-2">
+                            <i data-feather="music" class="w-4 h-4"></i> Morceaux
+                        </span>
+                        <span class="font-bold text-heading" id="summary-count">{{ songs|length }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-base-200">
+                        <span class="text-muted flex items-center gap-2">
+                            <i data-feather="clock" class="w-4 h-4"></i> Durée totale
+                        </span>
+                        <span class="font-bold text-heading" id="summary-duration">
+                            {{ (totalDuration / 60)|round(0, 'floor') }}m {{ totalDuration % 60 }}s
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-muted flex items-center gap-2">
+                            <i data-feather="user" class="w-4 h-4"></i> Propriétaire
+                        </span>
+                        <span class="font-medium text-heading">{{ app.user.nom ?: app.user.email }}</span>
+                    </div>
+                </div>
+
+                <!-- Boutons d'action -->
+                <div class="space-y-3">
+                    <button type="submit" class="btn btn-primary w-full text-lg">
+                        <i data-feather="save" class="w-5 h-5 mr-2"></i> Enregistrer
+                    </button>
+                    <a href="{{ path('app_playlist_create') }}" class="btn btn-outline w-full">
+                        <i data-feather="edit" class="w-4 h-4 mr-2"></i> Modifier les critères
+                    </a>
+                </div>
+                </div>
+
+                <!-- Lecteur Audio -->
+                <div class="mt-8 border-t border-base-200 pt-6 text-center">
+                    <div class="player-disc-container mx-auto mb-4" style="width: 48px; height: 48px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center;">
+                        <i data-feather="disc" class="w-6 h-6 text-primary" id="player-disc"></i>
+                    </div>
+                    
+                    <h3 id="player-title" class="text-md font-bold text-heading truncate mb-1">Prêt à écouter</h3>
+                    <p id="player-artist" class="text-xs text-muted truncate mb-4">Sélectionnez une piste</p>
+                    
+                    <audio id="main-audio-player" controls class="w-full h-10 outline-none rounded-full">
+                        Votre navigateur ne supporte pas la balise audio.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function toggleAll(checked) {
+        document.querySelectorAll('.song-checkbox').forEach(cb => {
+            cb.checked = checked;
+        });
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const checkboxes = document.querySelectorAll('.song-checkbox');
+        let count = 0;
+        let totalDuration = 0;
+
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                count++;
+                totalDuration += parseInt(cb.dataset.duration, 10);
+            }
+            // Style visuel : griser les lignes décochées
+            const row = cb.closest('.song-row');
+            if (row) {
+                row.style.opacity = cb.checked ? '1' : '0.35';
+                row.style.textDecoration = cb.checked ? 'none' : 'line-through';
+            }
+        });
+
+        document.getElementById('song-count').textContent = count;
+        document.getElementById('summary-count').textContent = count;
+
+        const minutes = Math.floor(totalDuration / 60);
+        const seconds = totalDuration % 60;
+        document.getElementById('summary-duration').textContent = minutes + 'm ' + seconds + 's';
+    }
+
+    function playTrack(btn, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const row = btn.closest('.song-row');
+        const player = document.getElementById('main-audio-player');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        
+        document.querySelectorAll('.song-row').forEach(r => r.classList.remove('bg-base-200'));
+        row.classList.add('bg-base-200');
+        
+        playerTitle.textContent = row.dataset.title;
+        playerArtist.textContent = row.dataset.artist || 'Artiste inconnu';
+        player.src = row.dataset.src;
+        
+        player.play().catch(e => console.error("Lecture bloquée", e));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const player = document.getElementById('main-audio-player');
+        const playerDisc = document.getElementById('player-disc');
+        
+        player.addEventListener('play', () => {
+            playerDisc.classList.add('animate-spin-slow');
+        });
+        
+        player.addEventListener('pause', () => {
+            playerDisc.classList.remove('animate-spin-slow');
+        });
+        
+        if (typeof feather !== 'undefined') feather.replace();
+    });
+</script>
+{% endblock %}

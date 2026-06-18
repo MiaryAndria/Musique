@@ -3,12 +3,62 @@
 {% block title %}Bibliothèque Musicale{% endblock %}
 
 {% block body %}
-<div class="page-header">
-    <div>
+<div class="page-header mb-6">
+    <div class="mb-4">
         <h1 class="page-title">
             <i data-feather="database"></i> Bibliothèque
         </h1>
         <p class="text-muted mt-1">Gérez l'ensemble de vos fichiers MP3 et métadonnées.</p>
+    </div>
+    
+    <div class="glass-panel p-4">
+        <form method="get" action="{{ path('app_song_index') }}" class="flex flex-wrap gap-4 items-end">
+            <div class="form-control flex-1 min-w-[200px]">
+                <label class="label"><span class="label-text">Titre / Fichier</span></label>
+                <input type="text" name="title" value="{{ searchTitle|default('') }}" placeholder="Rechercher un titre..." class="input input-bordered w-full" />
+            </div>
+            
+            <div class="form-control flex-1 min-w-[150px]">
+                <label class="label"><span class="label-text">Artiste</span></label>
+                <select name="artiste" class="select select-bordered w-full">
+                    <option value="">Tous les artistes</option>
+                    {% for artiste in artistes %}
+                        <option value="{{ artiste.id }}" {% if searchArtiste == artiste.id %}selected{% endif %}>{{ artiste.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control flex-1 min-w-[150px]">
+                <label class="label"><span class="label-text">Album</span></label>
+                <select name="album" class="select select-bordered w-full">
+                    <option value="">Tous les albums</option>
+                    {% for album in albums %}
+                        <option value="{{ album.id }}" {% if searchAlbum == album.id %}selected{% endif %}>{{ album.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control flex-1 min-w-[150px]">
+                <label class="label"><span class="label-text">Genre</span></label>
+                <select name="genre" class="select select-bordered w-full">
+                    <option value="">Tous les genres</option>
+                    {% for genre in genres %}
+                        <option value="{{ genre.id }}" {% if searchGenre == genre.id %}selected{% endif %}>{{ genre.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex gap-2 w-full md:w-auto">
+                <button type="submit" class="btn btn-primary">
+                    <i data-feather="filter" class="w-4 h-4 mr-2"></i> Valider
+                </button>
+                {% if searchTitle or searchArtiste or searchAlbum or searchGenre %}
+                    <a href="{{ path('app_song_index') }}" class="btn btn-ghost text-muted">
+                        <i data-feather="x" class="w-4 h-4 mr-2"></i> Effacer
+                    </a>
+                {% endif %}
+            </div>
+        </form>
     </div>
 </div>
 
@@ -22,6 +72,7 @@
                     <th>Fichier</th>
                     <th>Titre</th>
                     <th>Artistes</th>
+                    <th>Album</th>
                     <th>Genres</th>
                     <th>Durée</th>
                     <th class="text-right">Actions</th>
@@ -46,6 +97,13 @@
                         {% endfor %}
                     </td>
                     <td>
+                        {% for album in song.albums %}
+                            <span class="text-sm">{{ album.nom }}</span>{{ not loop.last ? ', ' }}
+                        {% else %}
+                            <span class="text-subtle text-sm">-</span>
+                        {% endfor %}
+                    </td>
+                    <td>
                         {% for genre in song.genres %}
                             <span class="badge badge-outline badge-sm">{{ genre.nom }}</span>
                         {% else %}
@@ -65,9 +123,9 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7" class="text-center py-12 text-muted">
+                    <td colspan="8" class="text-center py-12 text-muted">
                         <i data-feather="inbox" class="w-8 h-8 mx-auto mb-2 text-subtle"></i>
-                        Aucune musique n'est encore enregistrée.
+                        Aucune musique trouvée.
                     </td>
                 </tr>
             {% endfor %}

@@ -5,15 +5,17 @@ public class Mp3Metadata {
     private String fileName;
     private String title;
     private String artist;
+    private String album;
     private String genre;
     private long duration;
 
     public Mp3Metadata(String fileName, String title,
-            String artist, String genre,
+            String artist, String album, String genre,
             long duration) {
         this.fileName = fileName;
         this.title = title;
         this.artist = artist;
+        this.album = album;
         this.genre = genre;
         this.duration = duration;
     }
@@ -24,6 +26,7 @@ public class Mp3Metadata {
                 "fileName='" + fileName + '\'' +
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
                 ", genre='" + genre + '\'' +
                 ", duration=" + duration +
                 '}';
@@ -39,6 +42,10 @@ public class Mp3Metadata {
 
     public String getArtist() {
         return artist;
+    }
+
+    public String getAlbum() {
+        return album;
     }
 
     public String getGenre() {

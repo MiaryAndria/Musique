@@ -49,6 +49,11 @@ public class UploadConsumer {
             String filePath = (String) message.get("filePath");
             File file = new File(filePath);
             
+            if (!file.exists()) {
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+                return;
+            }
+            
             // Re-sérialiser / désérialiser juste l'objet metadata pour retrouver la classe Mp3Metadata
             String metaJson = gson.toJson(message.get("metadata"));
             Mp3Metadata metadata = gson.fromJson(metaJson, Mp3Metadata.class);
