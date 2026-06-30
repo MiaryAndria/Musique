@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
@@ -18,6 +19,13 @@ class Album
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
+
+    #[ORM\ManyToOne(targetEntity: Artiste::class, inversedBy: 'albums')]
+    #[ORM\JoinColumn(name: 'artist_id', referencedColumnName: 'id', nullable: false)]
+    private ?Artiste $artiste = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\ManyToMany(targetEntity: Song::class, mappedBy: 'albums')]
     private Collection $songs;
@@ -40,6 +48,28 @@ class Album
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+        return $this;
+    }
+
+    public function getArtiste(): ?Artiste
+    {
+        return $this->artiste;
+    }
+
+    public function setArtiste(?Artiste $artiste): static
+    {
+        $this->artiste = $artiste;
+        return $this;
+    }
+
+    public function getReleaseDate(): ?\DateTimeInterface
+    {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate(\DateTimeInterface $releaseDate): static
+    {
+        $this->releaseDate = $releaseDate;
         return $this;
     }
 
@@ -73,6 +103,8 @@ class Album
         return [
             'id' => $this->id,
             'nom' => $this->nom,
+            'artiste' => $this->artiste?->toArray(),
+            'releaseDate' => $this->releaseDate?->format('Y-m-d'),
         ];
     }
 }

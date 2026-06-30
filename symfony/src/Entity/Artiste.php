@@ -22,9 +22,13 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Song::class, mappedBy: 'artistes')]
     private Collection $songs;
 
+    #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'artiste')]
+    private Collection $albums;
+
     public function __construct()
     {
         $this->songs = new ArrayCollection();
+        $this->albums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,6 +68,33 @@ class Artiste
     {
         if ($this->songs->removeElement($song)) {
             $song->removeArtiste($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
+    }
+
+    public function addAlbum(Album $album): static
+    {
+        if (!$this->albums->contains($album)) {
+            $this->albums->add($album);
+            $album->setArtiste($this);
+        }
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): static
+    {
+        if ($this->albums->removeElement($album)) {
+            if ($album->getArtiste() === $this) {
+                $album->setArtiste(null);
+            }
         }
         return $this;
     }

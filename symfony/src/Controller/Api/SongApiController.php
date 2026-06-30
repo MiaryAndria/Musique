@@ -139,6 +139,21 @@ class SongApiController extends AbstractController
             if (!$album) {
                 $album = new \App\Entity\Album();
                 $album->setNom($albumName);
+                // L'artiste principal de l'album = premier artiste de la chanson
+                $firstArtiste = $song->getArtistes()->first();
+                if ($firstArtiste) {
+                    $album->setArtiste($firstArtiste);
+                } else {
+                    // Créer un artiste "Inconnu" si aucun artiste n'est fourni
+                    $unknownArtiste = $this->em->getRepository(Artiste::class)->findOneBy(['nom' => 'Inconnu']);
+                    if (!$unknownArtiste) {
+                        $unknownArtiste = new Artiste();
+                        $unknownArtiste->setNom('Inconnu');
+                        $this->em->persist($unknownArtiste);
+                    }
+                    $album->setArtiste($unknownArtiste);
+                }
+                $album->setReleaseDate(new \DateTime());
                 $this->em->persist($album);
             }
             $song->addAlbum($album);
@@ -279,7 +294,42 @@ class SongApiController extends AbstractController
             }
         }
         
-        if (isset($data['album'])) $song->setAlbum($data['album']);
+        if (isset($data['album'])) {
+            $albumName = trim($data['album']);
+            if ($albumName) {
+                // Vider les albums actuels
+                foreach ($song->getAlbums() as $al) {
+                    $song->removeAlbum($al);
+                }
+                
+                $album = $this->em->getRepository(\App\Entity\Album::class)->createQueryBuilder('a')
+                    ->where('LOWER(a.nom) = LOWER(:nom)')
+                    ->setParameter('nom', $albumName)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+                    
+                if (!$album) {
+                    $album = new \App\Entity\Album();
+                    $album->setNom($albumName);
+                    // L'artiste principal de l'album = premier artiste de la chanson
+                    $firstArtiste = $song->getArtistes()->first();
+                    if ($firstArtiste) {
+                        $album->setArtiste($firstArtiste);
+                    } else {
+                        $unknownArtiste = $this->em->getRepository(Artiste::class)->findOneBy(['nom' => 'Inconnu']);
+                        if (!$unknownArtiste) {
+                            $unknownArtiste = new Artiste();
+                            $unknownArtiste->setNom('Inconnu');
+                            $this->em->persist($unknownArtiste);
+                        }
+                        $album->setArtiste($unknownArtiste);
+                    }
+                    $album->setReleaseDate(new \DateTime());
+                    $this->em->persist($album);
+                }
+                $song->addAlbum($album);
+            }
+        }
         if (isset($data['duration'])) $song->setDuration((int) $data['duration']);
 
         $this->em->flush();

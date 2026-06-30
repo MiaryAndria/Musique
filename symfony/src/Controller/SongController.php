@@ -87,6 +87,20 @@ class SongController extends AbstractController
                             if (!$album) {
                                 $album = new \App\Entity\Album();
                                 $album->setNom($alName);
+                                // L'artiste principal de l'album = premier artiste de la chanson
+                                $firstArtiste = $song->getArtistes()->first();
+                                if ($firstArtiste) {
+                                    $album->setArtiste($firstArtiste);
+                                } else {
+                                    $unknownArtiste = $entityManager->getRepository(Artiste::class)->findOneBy(['nom' => 'Inconnu']);
+                                    if (!$unknownArtiste) {
+                                        $unknownArtiste = new Artiste();
+                                        $unknownArtiste->setNom('Inconnu');
+                                        $entityManager->persist($unknownArtiste);
+                                    }
+                                    $album->setArtiste($unknownArtiste);
+                                }
+                                $album->setReleaseDate(new \DateTime());
                                 $entityManager->persist($album);
                             }
                             $song->addAlbum($album);
